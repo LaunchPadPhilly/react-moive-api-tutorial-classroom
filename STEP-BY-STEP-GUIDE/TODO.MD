@@ -9,3 +9,4 @@ This document outlines the remaining tasks for the Movie Search App project, foc
 - [ ] Desing a clear path between the two deliverables: 
     - [ ] Technical 
     - [ ] Incentive 
+    
