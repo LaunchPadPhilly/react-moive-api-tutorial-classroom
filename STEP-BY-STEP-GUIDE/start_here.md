@@ -3,7 +3,7 @@
 When you are ready to start your project, check these boxes and and add this file to Beacon.
 
 **I have reviewed and understand:**
-- [ ] The project [overview](./overview.md)
+- [x ] The project [overview](./overview.md)
     - [ ] The Beacon Requirements
 - [ ] The [problem statement](./00-problem.md) and user needs
 - [ ] The complete [project scope](./01-project-scope.md) and requirements
