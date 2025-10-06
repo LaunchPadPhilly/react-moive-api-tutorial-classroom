@@ -20,26 +20,26 @@ A responsive React movie search application built with Vite that allows users to
 
 **Package Management:**
 ```bash
-# Always use pnpm for this project
-pnpm install           # Install dependencies
-pnpm add <package>     # Add a package
-pnpm remove <package>  # Remove a package
+# Always use npm for this project
+npm install           # Install dependencies
+npm add <package>     # Add a package
+npm remove <package>  # Remove a package
 ```
 
 **Development:**
 ```bash
-pnpm run dev      # Start dev server (http://localhost:5173)
-pnpm run build    # Production build
-pnpm run preview  # Preview production build
-pnpm run test     # Run Vitest tests
+npm run dev      # Start dev server (http://localhost:5173)
+npm run build    # Production build
+npm run preview  # Preview production build
+npm run test     # Run Vitest tests
 ```
 
 **Initial Setup (if starting fresh):**
 ```bash
 npm create vite@latest . -- --template react
-pnpm install
-pnpm install react-router-dom @tanstack/react-query @heroicons/react
-pnpm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom prettier eslint-config-prettier
+npm install
+npm install react-router-dom @tanstack/react-query @heroicons/react
+npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom prettier eslint-config-prettier
 ```
 
 ## Architecture & Code Structure
@@ -152,8 +152,8 @@ Each milestone has detailed implementation steps in `/miilestone/Milestone*/m*.m
 
 **Run Tests:**
 ```bash
-pnpm run test          # Run all tests
-pnpm run test -- --ui  # Run with Vitest UI (if installed)
+npm run test          # Run all tests
+npm run test -- --ui  # Run with Vitest UI (if installed)
 ```
 
 ## Reference Documentation
@@ -193,7 +193,7 @@ const handleToggle = () => {
 
 ## Important Notes
 
-- **Always use pnpm** for package management (per user configuration)
+- **Always use npm** for package management (per user configuration)
 - **No Tailwind** - Use custom CSS3 in `/src/styles/` directory
 - **Prisma:** If database schema changes are needed, run `npx prisma generate` (per user config)
 - Search requires minimum 2 characters to trigger API call
