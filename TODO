@@ -1,0 +1,8 @@
+# Project Update Checklist
+- [ ] Ensure the [project prompt](./project-prompt.md) has been updated to the project 
+- [ ] Generate AI prompts to Teach, Train, Test Instructional AI Models on React concepts:
+- [ ] Generate prompts to extract key React concepts from the project create a lesson plans and slides.
+- [ ] Generate prompts to create code snippets for common React patterns and best practices.
+- [ ] Create the vercel deployment guide for the project
+- [ ] Create the github pages deployment guide for the project
+- [ ] Create the github actions deployment guide for the project
