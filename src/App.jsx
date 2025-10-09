@@ -5,6 +5,8 @@ import AppShell from './components/AppShell';
 import SearchPage from './pages/SearchPage';
 import MovieDetailPage from './pages/MovieDetailPage';
 import FavoritesPage from './pages/FavoritesPage';
+import AnalyticsPage from './pages/AnalyticsPage';
+import { WatchTimeProvider } from './contexts/WatchTimeContext';
 import './index.css';
 
 const queryClient = new QueryClient({
@@ -20,15 +22,18 @@ function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <Router>
-          <AppShell>
-            <Routes>
-              <Route path="/" element={<SearchPage />} />
-              <Route path="/movie/:imdbID" element={<MovieDetailPage />} />
-              <Route path="/favorites" element={<FavoritesPage />} />
-            </Routes>
-          </AppShell>
-        </Router>
+        <WatchTimeProvider>
+          <Router>
+            <AppShell>
+              <Routes>
+                <Route path="/" element={<SearchPage />} />
+                <Route path="/movie/:imdbID" element={<MovieDetailPage />} />
+                <Route path="/favorites" element={<FavoritesPage />} />
+                <Route path="/analytics" element={<AnalyticsPage />} />
+              </Routes>
+            </AppShell>
+          </Router>
+        </WatchTimeProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   );

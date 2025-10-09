@@ -1,15 +1,28 @@
+import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useMovieDetail } from '../hooks/useMovieDetail';
 import { useFavorites } from '../hooks/useFavorites';
+import { useWatchTime } from '../contexts/WatchTimeContext';
+import { useGeolocation } from '../hooks/useGeolocation';
+import { openaiApi } from '../services/openaiApi';
 import LoadingSpinner from '../components/LoadingSpinner';
 import FavoriteButton from '../components/FavoriteButton';
+import WatchButton from '../components/WatchButton';
+import RecommendationModal from '../components/RecommendationModal';
 import '../styles/MovieDetailPage.css';
 
 export default function MovieDetailPage() {
   const { imdbID } = useParams();
   const { data: movie, isLoading, error } = useMovieDetail(imdbID);
   const { isFavorite, addToFavorites, removeFromFavorites } = useFavorites();
+  const { isWatched, markAsWatched, unmarkAsWatched, getTotalHours, watchedMovies } = useWatchTime();
+  const { location, requestLocation } = useGeolocation();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [recommendation, setRecommendation] = useState(null);
+  const [recommendationLoading, setRecommendationLoading] = useState(false);
+  const [recommendationError, setRecommendationError] = useState(null);
 
   const handleFavoriteToggle = () => {
     if (!movie) return;
@@ -18,6 +31,45 @@ export default function MovieDetailPage() {
       removeFromFavorites(movie.imdbID);
     } else {
       addToFavorites(movie.imdbID);
+    }
+  };
+
+  const handleWatchToggle = async () => {
+    if (!movie) return;
+
+    if (isWatched(movie.imdbID)) {
+      unmarkAsWatched(movie.imdbID);
+    } else {
+      markAsWatched(movie);
+
+      // Check if we've reached 40 hours after marking as watched
+      const totalHours = parseFloat(getTotalHours());
+      if (totalHours >= 40) {
+        // Trigger recommendation flow
+        if (!location) {
+          await requestLocation();
+        }
+
+        if (location) {
+          setModalOpen(true);
+          setRecommendationLoading(true);
+          setRecommendationError(null);
+
+          try {
+            const result = await openaiApi.getLocalRecommendations(
+              location.latitude,
+              location.longitude,
+              totalHours,
+              watchedMovies
+            );
+            setRecommendation(result.recommendation);
+          } catch (err) {
+            setRecommendationError(err.message || 'Failed to get recommendations');
+          } finally {
+            setRecommendationLoading(false);
+          }
+        }
+      }
     }
   };
 
@@ -81,10 +133,16 @@ export default function MovieDetailPage() {
                   {movie.Year} • {movie.Type} • {movie.Rated}
                 </p>
               </div>
-              <FavoriteButton
-                isFavorite={isFavorite(movie.imdbID)}
-                onToggle={handleFavoriteToggle}
-              />
+              <div className="movie-actions">
+                <FavoriteButton
+                  isFavorite={isFavorite(movie.imdbID)}
+                  onToggle={handleFavoriteToggle}
+                />
+                <WatchButton
+                  isWatched={isWatched(movie.imdbID)}
+                  onToggle={handleWatchToggle}
+                />
+              </div>
             </div>
 
             {movie.Plot && (
@@ -154,6 +212,14 @@ export default function MovieDetailPage() {
           </div>
         </div>
       </div>
+
+      <RecommendationModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        recommendation={recommendation}
+        loading={recommendationLoading}
+        error={recommendationError}
+      />
     </div>
   );
 }

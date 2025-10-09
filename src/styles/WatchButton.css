@@ -1,0 +1,70 @@
+.watch-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 2px solid #3b82f6;
+  background-color: transparent;
+  color: #3b82f6;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.watch-button:hover {
+  background-color: #3b82f6;
+  color: white;
+  transform: translateY(-1px);
+}
+
+.watch-button:active {
+  transform: translateY(0);
+}
+
+.watch-button.watched {
+  background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.watch-button.watched:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+.watch-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.watch-button-text {
+  font-size: 0.875rem;
+}
+
+@media (max-width: 640px) {
+  .watch-button {
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .watch-icon {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .watch-button-text {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Focus styles for accessibility */
+.watch-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.watch-button:focus:not(:focus-visible) {
+  outline: none;
+}

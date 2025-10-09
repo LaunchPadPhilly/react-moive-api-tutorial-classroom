@@ -2,6 +2,7 @@ const API_KEY = import.meta.env.VITE_OMDB_API_KEY;
 const BASE_URL = 'https://www.omdbapi.com/';
 
 export const omdbApi = {
+  
   async searchMovies(query, page = 1, type, year) {
     const params = new URLSearchParams({
       apikey: API_KEY,

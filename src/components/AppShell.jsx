@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { MagnifyingGlassIcon, HeartIcon } from '@heroicons/react/24/outline';
+import { MagnifyingGlassIcon, HeartIcon, ChartBarIcon } from '@heroicons/react/24/outline';
 import '../styles/AppShell.css';
 
 export default function AppShell({ children }) {
@@ -31,6 +31,15 @@ export default function AppShell({ children }) {
               >
                 <HeartIcon className="nav-icon" />
                 Favorites
+              </Link>
+              <Link
+                to="/analytics"
+                className={`nav-link ${
+                  location.pathname === '/analytics' ? 'active' : ''
+                }`}
+              >
+                <ChartBarIcon className="nav-icon" />
+                Analytics
               </Link>
             </nav>
           </div>
